@@ -107,6 +107,7 @@ function renderSurvey() {
             <option value="">— wybierz —</option>
             <option value="słuchawki">słuchawki</option>
             <option value="głośniki komputera/laptopa">głośniki komputera / laptopa</option>
+            <option value="głośnik telefonu/tabletu">głośnik telefonu / tabletu</option>
             <option value="głośniki zewnętrzne">głośniki zewnętrzne</option>
             <option value="inne">inne</option>
           </select>
