@@ -17,3 +17,34 @@ export function selectTrials(pool, { classes, realPerClass, generatedPerClass },
   }
   return shuffle(selected, rng);
 }
+
+export function scoreTrial(trial, answer) {
+  const correct = (answer === 'generated') === trial.isGenerated;
+  return { ...trial, answer, correct };
+}
+
+export function isSurveyComplete(survey) {
+  return Boolean(
+    survey &&
+    survey.ageRange &&
+    survey.audioExperience &&
+    survey.equipment &&
+    survey.medicalExperience &&
+    typeof survey.medicalExperience.hasExperience === 'boolean'
+  );
+}
+
+export function buildResultsPayload(survey, scoredTrials, timestamp) {
+  return {
+    timestamp,
+    survey,
+    trials: scoredTrials.map((trial, index) => ({
+      id: trial.id,
+      class: trial.class,
+      isGenerated: trial.isGenerated,
+      answer: trial.answer,
+      correct: trial.correct,
+      orderIndex: index
+    }))
+  };
+}
