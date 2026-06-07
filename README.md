@@ -58,6 +58,8 @@ miejscu — stała `TEST_CONFIG` w `js/data.js`.
 1. Utwórz nowy Arkusz Google.
 2. W menu wybierz **Rozszerzenia → Apps Script**.
 3. Wklej zawartość `google-apps-script.gs` do edytora, zastępując domyślny kod.
+   Jeśli chcesz otrzymywać powiadomienia e-mail na inny adres niż domyślny,
+   zmień wartość stałej `NOTIFICATION_EMAIL` na górze skryptu.
 4. Kliknij **Wdróż → Nowe wdrożenie**, wybierz typ **Aplikacja internetowa**,
    ustaw "Kto ma dostęp" na **Każdy** (anonimowy dostęp jest wymagany,
    żeby strona mogła wysyłać wyniki bez logowania uczestnika).
@@ -66,8 +68,17 @@ miejscu — stała `TEST_CONFIG` w `js/data.js`.
    (zastępując `'PASTE_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE'`).
 7. Sprawdź działanie: przejdź przez cały test na stronie i kliknij
    "Wyślij wyniki" — w arkuszu powinien pojawić się arkusz "Wyniki"
-   z 30 nowymi wierszami (po jednym na próbę).
+   z 30 nowymi wierszami (po jednym na próbę), a na adres z
+   `NOTIFICATION_EMAIL` powinien przyjść e-mail z podsumowaniem wyniku.
 
 Jeśli wysyłka się nie powiedzie (np. brak internetu), strona zaproponuje
 pobranie wyników jako plik JSON — to zabezpieczenie awaryjne, żeby dane
 uczestnika nie przepadły.
+
+## Powiadomienia e-mail o ukończonych testach
+
+Po każdym udanym przesłaniu wyników skrypt `google-apps-script.gs` wysyła
+e-mail (przez `MailApp.sendEmail`) na adres z `NOTIFICATION_EMAIL`. Treść
+zawiera: znacznik czasu, łączny wynik (x/n + procent), rozbicie wyniku na
+klasy (`normal` / `murmur` / `extrastole`) oraz dane z ankiety uczestnika
+(wiek, doświadczenie ze słuchem, sprzęt, doświadczenie medyczne).
