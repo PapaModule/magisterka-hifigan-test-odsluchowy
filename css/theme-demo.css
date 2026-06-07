@@ -85,3 +85,4 @@ audio { width: 100%; }
 .status-sent { color: #34d399; }
 .status-error { color: var(--accent); }
 .status-sending { color: var(--muted); }
+.result-score { margin-top: .6rem; font-size: 1.1rem; font-weight: 600; }

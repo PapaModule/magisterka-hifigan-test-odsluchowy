@@ -231,10 +231,17 @@ function attachTestHandlers() {
 
 // ── Krok 4: Podsumowanie i wysyłka ─────────────────────────────────
 function renderSummary() {
+  const correctCount = state.scoredTrials.filter((trial) => trial.correct).length;
+  const totalCount = state.scoredTrials.length;
+  const percentage = totalCount === 0 ? 0 : Math.round((correctCount / totalCount) * 100);
+  const scoreLine = `<p class="result-score">Twój wynik: ${correctCount}/${totalCount} (${percentage}%)</p>`;
   const statusMessages = {
     idle: '',
     sending: '<p class="status status-sending">Wysyłanie wyników…</p>',
-    sent: '<p class="status status-sent">Dziękujemy! Wyniki zostały zapisane.</p>',
+    sent: `
+      <p class="status status-sent">Dziękujemy! Wyniki zostały zapisane.</p>
+      ${scoreLine}
+    `,
     error: `
       <p class="status status-error">
         Nie udało się wysłać wyników automatycznie. Pobierz plik z wynikami
