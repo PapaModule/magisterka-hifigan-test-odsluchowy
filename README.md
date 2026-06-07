@@ -30,7 +30,7 @@ uruchamianymi wbudowanym test runnerem Node.js (Node 18+):
 ```bash
 npm test
 # albo bezpośrednio:
-node --test js/
+node --test js/*.test.js
 ```
 
 ## Podmiana próbek po zakończeniu eksperymentu

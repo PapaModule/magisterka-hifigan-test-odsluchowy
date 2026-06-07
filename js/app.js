@@ -247,9 +247,11 @@ function renderSummary() {
     <section class="step step-summary">
       <h2>Dziękujemy za udział!</h2>
       <p>To już koniec testu. Kliknij przycisk poniżej, aby wysłać swoje odpowiedzi.</p>
+      ${state.sendStatus === 'sent' ? '' : `
       <button type="button" class="btn btn-primary" data-action="send" ${state.sendStatus === 'sending' ? 'disabled' : ''}>
         Wyślij wyniki
       </button>
+      `}
       ${statusMessages[state.sendStatus]}
     </section>
   `;
