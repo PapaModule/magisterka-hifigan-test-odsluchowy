@@ -33,21 +33,22 @@ npm test
 node --test js/*.test.js
 ```
 
-## Podmiana próbek po zakończeniu eksperymentu
+## Pochodzenie próbek testowych
 
-Próbki w `audio/test/generated/` są **TYMCZASOWYMI placeholderami** — kopiami
-nagrań z oryginalnego datasetu, oznaczonymi w `js/data.js` komentarzem
-`PLACEHOLDER`. Gdy eksperyment exp9 się zakończy:
+Próbki w `audio/test/real/` to nagrania z `dataset_exp9` (po 5 na klasę,
+różne nagrania/pacjenci). Próbki w `audio/test/generated/` to nagrania
+wygenerowane przez model cHiFi-GAN w eksperymencie exp9 — `_01`–`_04` z
+checkpointu `epoch_0085`, `_05` z checkpointu `epoch_0080`.
 
-1. Wygeneruj 5 nowych nagrań dla każdej klasy (`normal`, `murmur`, `extrastole`).
-2. Podmień pliki w `audio/test/generated/`, zachowując te same nazwy
-   (`normal_01.wav`…`normal_05.wav`, analogicznie dla pozostałych klas) —
-   wtedy `js/data.js` nie wymaga żadnych zmian.
-3. (Opcjonalnie) Jeśli zmienisz nazwy plików, zaktualizuj odpowiadające
+Aby podmienić dowolny zestaw próbek na nowy:
+
+1. Podmień pliki w `audio/test/real/` lub `audio/test/generated/`,
+   zachowując te same nazwy (`normal_01.wav`…`normal_05.wav`, analogicznie
+   dla pozostałych klas) — wtedy `js/data.js` nie wymaga żadnych zmian.
+2. (Opcjonalnie) Jeśli zmienisz nazwy plików, zaktualizuj odpowiadające
    wpisy `file` w `TEST_TRIAL_POOL` w `js/data.js`.
-4. Uruchom `npm test` — test `data.test.js` sprawdzi, że nadal masz co
+3. Uruchom `npm test` — test `data.test.js` sprawdzi, że nadal masz co
    najmniej 5 prawdziwych i 5 wygenerowanych próbek na klasę z unikalnymi `id`.
-5. Usuń komentarz `PLACEHOLDER` nad `TEST_TRIAL_POOL` w `js/data.js`.
 
 Liczbę prób oraz proporcję prawdziwych/wygenerowanych zmienisz w jednym
 miejscu — stała `TEST_CONFIG` w `js/data.js`.

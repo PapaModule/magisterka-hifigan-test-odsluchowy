@@ -22,13 +22,11 @@ export const CALIBRATION_SAMPLES = [
   { class: 'extrastole', file: 'audio/calibration/extrastole_02.wav', label: 'Dodatkowy ton — przykład 2' }
 ];
 
-// PLACEHOLDER — pula próbek do testu real-vs-fake.
-// Wpisy "isGenerated: true" wskazują TYMCZASOWO na pliki skopiowane
-// z oryginalnego datasetu — eksperyment exp9 jeszcze trwa i docelowe
-// wygenerowane próbki nie istnieją. Po jego zakończeniu podmień pliki
-// w audio/test/generated/ na finalne nagrania z modelu, zachowując
-// te same nazwy plików — patrz README.md, sekcja
-// "Podmiana próbek po zakończeniu eksperymentu".
+// Pula próbek do testu real-vs-fake.
+// Wpisy "isGenerated: false" to prawdziwe nagrania z dataset_exp9.
+// Wpisy "isGenerated: true" to nagrania wygenerowane przez model cHiFi-GAN
+// (eksperyment exp9): _01–_04 pochodzą z checkpointu epoch_0085,
+// _05 z checkpointu epoch_0080.
 export const TEST_TRIAL_POOL = [
   { id: 'normal_real_01', class: 'normal', isGenerated: false, file: 'audio/test/real/normal_01.wav' },
   { id: 'normal_real_02', class: 'normal', isGenerated: false, file: 'audio/test/real/normal_02.wav' },
