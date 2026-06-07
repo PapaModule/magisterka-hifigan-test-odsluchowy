@@ -1,7 +1,7 @@
 import { CALIBRATION_SAMPLES, CLASS_INFO, TEST_TRIAL_POOL, TEST_CONFIG } from './data.js';
 import { selectTrials, scoreTrial, buildResultsPayload, isSurveyComplete } from './logic.js';
 
-const GAS_WEBHOOK_URL = 'PASTE_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+const GAS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxuDuZzJ1GswLcQ2NhXxXjB8SbvrAWQ8T4Exl1q-z4GeVN8y-AtmJXKddtFY84AQFxvBQ/exec';
 
 const CLASS_LABELS = {
   normal: 'norma (normal)',
