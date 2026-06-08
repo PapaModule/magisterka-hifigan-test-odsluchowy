@@ -37,8 +37,9 @@ node --test js/*.test.js
 
 Próbki w `audio/test/real/` to nagrania z `dataset_exp9` (po 5 na klasę,
 różne nagrania/pacjenci). Próbki w `audio/test/generated/` to nagrania
-wygenerowane przez model cHiFi-GAN w eksperymencie exp9 — `_01`–`_04` z
-checkpointu `epoch_0085`, `_05` z checkpointu `epoch_0080`.
+wygenerowane przez model cHiFi-GAN w eksperymencie exp9, checkpoint
+`epoch_0095` (katalog `test_e95`) — po 5 na klasę, wybrane losowo spośród
+10 wygenerowanych próbek.
 
 Aby podmienić dowolny zestaw próbek na nowy:
 

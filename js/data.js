@@ -25,8 +25,8 @@ export const CALIBRATION_SAMPLES = [
 // Pula próbek do testu real-vs-fake.
 // Wpisy "isGenerated: false" to prawdziwe nagrania z dataset_exp9.
 // Wpisy "isGenerated: true" to nagrania wygenerowane przez model cHiFi-GAN
-// (eksperyment exp9): _01–_04 pochodzą z checkpointu epoch_0085,
-// _05 z checkpointu epoch_0080.
+// (eksperyment exp9, checkpoint epoch_0095, katalog test_e95) — wybrane
+// losowo (ziarno 95) spośród 10 próbek na klasę.
 export const TEST_TRIAL_POOL = [
   { id: 'normal_real_01', class: 'normal', isGenerated: false, file: 'audio/test/real/normal_01.wav' },
   { id: 'normal_real_02', class: 'normal', isGenerated: false, file: 'audio/test/real/normal_02.wav' },
