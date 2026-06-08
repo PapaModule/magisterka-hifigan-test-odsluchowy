@@ -76,6 +76,21 @@ Jeśli wysyłka się nie powiedzie (np. brak internetu), strona zaproponuje
 pobranie wyników jako plik JSON — to zabezpieczenie awaryjne, żeby dane
 uczestnika nie przepadły.
 
+## Szybka analiza wyników
+
+Skrypt `analysis/analyze_results.py` (czysty Python 3, bez zależności)
+liczy podstawowe statystyki na podstawie eksportu arkusza „Wyniki" do CSV
+(w Arkuszach Google: **Plik → Pobierz → Wartości rozdzielane przecinkami**):
+
+```bash
+python3 analysis/analyze_results.py wyniki.csv
+```
+
+Raport zawiera m.in.: ogólną trafność, trafność prawdziwe vs wygenerowane,
+trafność per klasa nagrania (i klasa × pochodzenie), trafność w podziale na
+odpowiedzi z ankiety (wiek, doświadczenie ze słuchem, sprzęt, doświadczenie
+medyczne) oraz wynik każdej pojedynczej sesji testowej.
+
 ## Powiadomienia e-mail o ukończonych testach
 
 Po każdym udanym przesłaniu wyników skrypt `google-apps-script.gs` wysyła
