@@ -1,7 +1,7 @@
 import { CALIBRATION_SAMPLES, CLASS_INFO, TEST_TRIAL_POOL, TEST_CONFIG } from './data.js';
 import { selectTrials, scoreTrial, buildResultsPayload, isSurveyComplete } from './logic.js';
 
-const GAS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxuDuZzJ1GswLcQ2NhXxXjB8SbvrAWQ8T4Exl1q-z4GeVN8y-AtmJXKddtFY84AQFxvBQ/exec';
+const GAS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycby-ZQFd6aQX92gkORo0TU-XSEL3LdOZvkdA34MZMs6K8vJ96uwuBMgs88k3_xF9YHV3/exec';
 
 const CLASS_LABELS = {
   normal: 'norma (normal)',
