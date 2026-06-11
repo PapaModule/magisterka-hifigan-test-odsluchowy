@@ -31,6 +31,11 @@ function render() {
   else if (state.step === 'calibration') app.innerHTML = renderCalibration();
   else if (state.step === 'test') app.innerHTML = renderTest();
   else if (state.step === 'summary') app.innerHTML = renderSummary();
+  const step = app.querySelector('.step');
+  if (step && getComputedStyle(step).animationName !== 'none') {
+    step.style.pointerEvents = 'none';
+    step.addEventListener('animationend', () => { step.style.pointerEvents = ''; }, { once: true });
+  }
   attachHandlers();
 }
 
