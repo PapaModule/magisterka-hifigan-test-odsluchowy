@@ -28,6 +28,15 @@ test('Trial pool structure', () => {
 
     // Validate file paths exist and are different
     assert(trial.fileA !== trial.fileB, `Trial ${trial.id}: fileA and fileB are identical`);
+
+    // CRITICAL SEMANTIC ASSERTION: correctAnswer must point to the generated file
+    const generatedInA = trial.fileA.includes('/generated/');
+    const generatedInB = trial.fileB.includes('/generated/');
+    const answerPointsToGenerated =
+      (trial.correctAnswer === 'A' && generatedInA) ||
+      (trial.correctAnswer === 'B' && generatedInB);
+    assert(answerPointsToGenerated,
+      `Trial ${trial.id}: correctAnswer doesn't point to generated file (answer='${trial.correctAnswer}', genA=${generatedInA}, genB=${generatedInB})`);
   }
 
   // Verify unique IDs

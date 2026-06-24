@@ -91,11 +91,11 @@ function buildTrialPool() {
 
       // Randomly assign which is A and which is B
       // If isGenFirst=true, fileA is generated and fileB is real
-      // correctAnswer tells user which one is generated (B if isGenFirst, A otherwise)
+      // correctAnswer tells user which one is generated (A if isGenFirst, B otherwise)
       const isGenFirst = rng() > 0.5;
       const fileA = isGenFirst ? genFile : realFile;
       const fileB = isGenFirst ? realFile : genFile;
-      const correctAnswer = isGenFirst ? 'B' : 'A'; // The generated sample is the "correct" answer
+      const correctAnswer = isGenFirst ? 'A' : 'B'; // The generated sample is the "correct" answer
 
       pool.push({
         id: `paired_${cls}_${String(i + 1).padStart(2, '0')}`,
