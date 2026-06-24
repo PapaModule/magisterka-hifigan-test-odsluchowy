@@ -15,10 +15,11 @@ test('SNR computation returns valid metrics', () => {
   const audioData = createMockAudioData();
   const metrics = computeMetrics(audioData, 44100);
 
-  // For a clean sine wave, SNR should be reasonable (can be very high or very low depending on noise floor)
+  // For a clean sine wave, SNR should be a valid number
   assert.equal(typeof metrics.snr, 'number', 'snr is not a number');
   assert.ok(!isNaN(metrics.snr), 'snr is NaN');
   assert.ok(isFinite(metrics.snr), 'snr is not finite');
+  // SNR can be very high or very low depending on noise floor; just check it's a valid finite number
   assert.equal(typeof metrics.flatness, 'number', 'flatness is not a number');
   assert.ok(metrics.flatness >= 0 && metrics.flatness <= 1, `flatness out of [0,1]: ${metrics.flatness}`);
   assert.equal(typeof metrics.zcr, 'number', 'zcr is not a number');

@@ -35,7 +35,27 @@ export function computeMetrics(audioData, sampleRate = 44100) {
 
 function computeFFT(data) {
   const N = Math.min(data.length, 1024);
-  return data.slice(0, N);
+  const windowed = new Float32Array(N);
+
+  // Apply Hann window to reduce spectral leakage
+  for (let i = 0; i < N; i++) {
+    const w = 0.5 * (1 - Math.cos((2 * Math.PI * i) / (N - 1)));
+    windowed[i] = data[i] * w;
+  }
+
+  // Compute DFT magnitude spectrum (frequency domain)
+  const spectrum = new Float32Array(N / 2);
+  for (let k = 0; k < N / 2; k++) {
+    let real = 0, imag = 0;
+    for (let n = 0; n < N; n++) {
+      const angle = (-2 * Math.PI * k * n) / N;
+      real += windowed[n] * Math.cos(angle);
+      imag += windowed[n] * Math.sin(angle);
+    }
+    spectrum[k] = Math.sqrt(real * real + imag * imag);
+  }
+
+  return spectrum;
 }
 
 export async function rankSamples(filePaths, metric = 'snr') {
