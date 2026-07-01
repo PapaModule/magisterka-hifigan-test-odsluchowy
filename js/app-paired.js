@@ -1,5 +1,5 @@
-import { CALIBRATION_SAMPLES, CLASS_INFO, PAIRED_TRIAL_POOL as TEST_TRIAL_POOL } from './data-paired.js';
-import { selectPairedTrials } from './data-paired.js';
+import { CALIBRATION_SAMPLES, CLASS_INFO } from './data.js';
+import { PAIRED_TRIAL_POOL as TEST_TRIAL_POOL, selectPairedTrials, scorePairedTrial } from './data-paired.js';
 import { isSurveyComplete } from './logic.js';
 
 const GAS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycby-ZQFd6aQX92gkORo0TU-XSEL3LdOZvkdA34MZMs6K8vJ96uwuBMgs88k3_xF9YHV3/exec';
@@ -228,16 +228,11 @@ function renderTest() {
   `;
 }
 
-function scorePaired(trial, answer) {
-  const correct = answer === trial.correctAnswer;
-  return { ...trial, answer, correct };
-}
-
 function attachTestHandlers() {
   app.querySelectorAll('[data-answer]').forEach((button) => {
     button.addEventListener('click', () => {
       const trial = state.trials[state.trialIndex];
-      state.scoredTrials.push(scorePaired(trial, button.dataset.answer));
+      state.scoredTrials.push(scorePairedTrial(trial, button.dataset.answer));
       if (state.trialIndex + 1 < state.trials.length) {
         state.trialIndex += 1;
         render();
@@ -297,7 +292,7 @@ function buildPayload() {
     trials: state.scoredTrials.map((trial, index) => ({
       id: trial.id,
       class: trial.class,
-      isGenerated: true,
+      isGenerated: trial.isGenerated,
       answer: trial.answer,
       correct: trial.correct,
       orderIndex: index

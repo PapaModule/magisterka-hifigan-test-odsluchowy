@@ -61,10 +61,11 @@ function computeFFT(data) {
 export async function rankSamples(filePaths, metric = 'snr') {
   const metricsData = [];
   for (const path of filePaths) {
+    let audioContext;
     try {
       const response = await fetch(path);
       const arrayBuffer = await response.arrayBuffer();
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
       const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
 
       const data = audioBuffer.getChannelData(0);
@@ -72,6 +73,10 @@ export async function rankSamples(filePaths, metric = 'snr') {
       metricsData.push({ path, ...metrics });
     } catch (error) {
       console.warn(`Failed to load ${path}:`, error);
+    } finally {
+      if (audioContext) {
+        audioContext.close();
+      }
     }
   }
 
