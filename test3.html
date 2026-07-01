@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test odsłuchowy — A/B porównanie</title>
+  <link rel="stylesheet" href="css/theme-demo.css">
+  <style>
+    .paired-players {
+      display: flex;
+      gap: 2rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    .player-group {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .player-label {
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    .player-group audio {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <main id="app"></main>
+  <script type="module" src="js/app-paired.js"></script>
+</body>
+</html>

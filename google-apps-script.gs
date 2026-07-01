@@ -1,9 +1,12 @@
 var NOTIFICATION_EMAIL = 'n.dawid@me.com';
 
 function doPost(e) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Wyniki')
-    || SpreadsheetApp.getActiveSpreadsheet().insertSheet('Wyniki');
   var payload = JSON.parse(e.postData.contents);
+  var testVersion = Number(payload.testVersion) || 1;
+  var sheetName = testVersion === 2 ? 'Wyniki Test 2' : 'Wyniki';
+
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(sheetName) || ss.insertSheet(sheetName);
 
   if (sheet.getLastRow() === 0) {
     sheet.appendRow([
