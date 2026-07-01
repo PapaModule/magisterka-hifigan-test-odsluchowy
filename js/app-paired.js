@@ -232,16 +232,35 @@ function attachTestHandlers() {
   app.querySelectorAll('[data-answer]').forEach((button) => {
     button.addEventListener('click', () => {
       const trial = state.trials[state.trialIndex];
-      state.scoredTrials.push(scorePairedTrial(trial, button.dataset.answer));
-      if (state.trialIndex + 1 < state.trials.length) {
-        state.trialIndex += 1;
-        render();
-      } else {
-        goToStep('summary');
-      }
+      const scored = scorePairedTrial(trial, button.dataset.answer);
+      state.scoredTrials.push(scored);
+      
+      // Show feedback
+      const isCorrect = scored.correct;
+      const feedbackDiv = document.createElement('div');
+      feedbackDiv.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2rem; font-weight: bold; padding: 2rem; border-radius: 8px; z-index: 9999;';
+      feedbackDiv.textContent = isCorrect ? '✓ Prawidłowo!' : '✗ Błędnie!';
+      feedbackDiv.style.backgroundColor = isCorrect ? '#10b981' : '#ef4444';
+      feedbackDiv.style.color = 'white';
+      app.appendChild(feedbackDiv);
+      
+      // Disable buttons during feedback
+      app.querySelectorAll('[data-answer]').forEach(b => b.disabled = true);
+      
+      // After 1 second, move to next trial
+      setTimeout(() => {
+        feedbackDiv.remove();
+        if (state.trialIndex + 1 < state.trials.length) {
+          state.trialIndex += 1;
+          render();
+        } else {
+          goToStep('summary');
+        }
+      }, 1000);
     });
   });
 }
+
 
 function renderSummary() {
   const correctCount = state.scoredTrials.filter((trial) => trial.correct).length;
