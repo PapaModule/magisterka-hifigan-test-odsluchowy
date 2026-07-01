@@ -291,6 +291,7 @@ function attachSummaryHandlers() {
 
 function buildPayload() {
   return {
+    testVersion: 2,
     timestamp: new Date().toISOString(),
     survey: state.survey,
     trials: state.scoredTrials.map((trial, index) => ({
