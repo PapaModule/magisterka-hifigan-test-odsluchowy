@@ -17,3 +17,5 @@
 
 Tasks 1-5 were implemented in previous session. Rankings data embedded in js/data-paired.js as RANKINGS constant instead of separate rankings.json file (design decision during implementation). All unit tests passing (15/15).
 
+Task 6: complete (commits 4e10167, review clean)
+Task 7: complete (commit b01e695, review clean)
