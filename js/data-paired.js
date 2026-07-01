@@ -82,11 +82,46 @@ function buildTrialPool() {
     const genRankings = RANKINGS[cls];
 
     // Real samples from dataset_exp9 (various naming patterns)
+    // Real samples from dataset_exp9 (using bentley pattern which is most complete)
     const realSamples = {
-      normal: ['normal_bentley_22025.wav', 'normal_bentley_22026.wav', 'normal_bentley_22027.wav', 'normal_bentley_22028.wav', 'normal_bentley_22029.wav', 'normal_p2016_t_01.wav', 'normal_p2016_t_02.wav', 'normal_p2016_t_03.wav', 'normal_p2022_01.wav', 'normal_p2022_02.wav'],
-      murmur: ['murmur_bentley_20001.wav', 'murmur_bentley_20002.wav', 'murmur_bentley_20003.wav', 'murmur_bentley_20004.wav', 'murmur_bentley_20005.wav', 'murmur_p2016_t_01.wav', 'murmur_p2016_t_02.wav', 'murmur_p2016_t_03.wav', 'murmur_p2022_01.wav', 'murmur_p2022_02.wav'],
-      extrastole: ['extrastole_bentley_001.wav', 'extrastole_bentley_002.wav', 'extrastole_bentley_003.wav', 'extrastole_bentley_004.wav', 'extrastole_bentley_005.wav', 'extrastole_p2016_t_01.wav', 'extrastole_p2016_t_02.wav', 'extrastole_p2016_t_03.wav', 'extrastole_p2022_01.wav', 'extrastole_p2022_02.wav']
+      normal: [
+        'normal_bentley_22025.wav',
+        'normal_bentley_22026.wav',
+        'normal_bentley_22027.wav',
+        'normal_bentley_22028.wav',
+        'normal_bentley_22029.wav',
+        'normal_bentley_22030.wav',
+        'normal_bentley_22031.wav',
+        'normal_bentley_22032.wav',
+        'normal_bentley_22033.wav',
+        'normal_bentley_22034.wav',
+      ],
+      murmur: [
+        'murmur_bentley_20648.wav',
+        'murmur_bentley_20649.wav',
+        'murmur_bentley_20650.wav',
+        'murmur_bentley_20651.wav',
+        'murmur_bentley_20652.wav',
+        'murmur_bentley_20653.wav',
+        'murmur_bentley_20654.wav',
+        'murmur_bentley_20655.wav',
+        'murmur_bentley_20656.wav',
+        'murmur_bentley_20657.wav',
+      ],
+      extrastole: [
+        'extrastole_bentley_00000.wav',
+        'extrastole_bentley_00001.wav',
+        'extrastole_bentley_00002.wav',
+        'extrastole_bentley_00003.wav',
+        'extrastole_bentley_00004.wav',
+        'extrastole_bentley_00005.wav',
+        'extrastole_bentley_00006.wav',
+        'extrastole_bentley_00007.wav',
+        'extrastole_bentley_00008.wav',
+        'extrastole_bentley_00009.wav',
+      ]
     };
+
 
     for (let i = 0; i < 10; i++) {
       // Real sample path (from dataset_exp9)
