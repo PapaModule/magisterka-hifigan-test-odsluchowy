@@ -81,10 +81,16 @@ function buildTrialPool() {
     const genFiles = GENERATED_TOP_10[cls];
     const genRankings = RANKINGS[cls];
 
+    // Real samples from dataset_exp9 (various naming patterns)
+    const realSamples = {
+      normal: ['normal_bentley_22025.wav', 'normal_bentley_22026.wav', 'normal_bentley_22027.wav', 'normal_bentley_22028.wav', 'normal_bentley_22029.wav', 'normal_p2016_t_01.wav', 'normal_p2016_t_02.wav', 'normal_p2016_t_03.wav', 'normal_p2022_01.wav', 'normal_p2022_02.wav'],
+      murmur: ['murmur_bentley_20001.wav', 'murmur_bentley_20002.wav', 'murmur_bentley_20003.wav', 'murmur_bentley_20004.wav', 'murmur_bentley_20005.wav', 'murmur_p2016_t_01.wav', 'murmur_p2016_t_02.wav', 'murmur_p2016_t_03.wav', 'murmur_p2022_01.wav', 'murmur_p2022_02.wav'],
+      extrastole: ['extrastole_bentley_001.wav', 'extrastole_bentley_002.wav', 'extrastole_bentley_003.wav', 'extrastole_bentley_004.wav', 'extrastole_bentley_005.wav', 'extrastole_p2016_t_01.wav', 'extrastole_p2016_t_02.wav', 'extrastole_p2016_t_03.wav', 'extrastole_p2022_01.wav', 'extrastole_p2022_02.wav']
+    };
+
     for (let i = 0; i < 10; i++) {
-      // Real sample path (from dataset_exp9, randomly distributed across available samples)
-      const randomSampleIndex = Math.floor(rng() * 10000); // Distribute across dataset
-      const realFile = `audio/test-paired/real/${cls}/${cls}_${String(randomSampleIndex).padStart(5, '0')}.wav`;
+      // Real sample path (from dataset_exp9)
+      const realFile = `audio/test-paired/real/${cls}/${realSamples[cls][i]}`;
 
       // Generated sample path (top 10 from e200 ranking)
       const genFileName = genFiles[i];
