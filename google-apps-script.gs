@@ -3,7 +3,7 @@ var NOTIFICATION_EMAIL = 'n.dawid@me.com';
 function doPost(e) {
   var payload = JSON.parse(e.postData.contents);
   var testVersion = Number(payload.testVersion) || 1;
-  var sheetName = testVersion === 2 ? 'Wyniki Test 2' : 'Wyniki';
+  var sheetName = testVersion === 2 ? 'Wyniki2' : 'Wyniki';
 
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getSheetByName(sheetName) || ss.insertSheet(sheetName);
