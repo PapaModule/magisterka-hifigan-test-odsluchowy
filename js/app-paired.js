@@ -254,7 +254,7 @@ function attachTestHandlers() {
           state.trialIndex += 1;
           render();
         } else {
-          goToStep('summary');
+          finishTest();
         }
       }, 1000);
     });
@@ -262,43 +262,35 @@ function attachTestHandlers() {
 }
 
 
+// Zakończenie testu: od razu pokazujemy ekran podziękowania z wynikiem,
+// a wyniki wysyłają się automatycznie w tle (bez klikania przez uczestnika).
+function finishTest() {
+  goToStep('summary');
+  sendResults();
+}
+
 function renderSummary() {
   const correctCount = state.scoredTrials.filter((trial) => trial.correct).length;
   const totalCount = state.scoredTrials.length;
   const percentage = totalCount === 0 ? 0 : Math.round((correctCount / totalCount) * 100);
-  const scoreLine = `<p class="result-score">Twój wynik: ${correctCount}/${totalCount} (${percentage}%)</p>`;
-  const statusMessages = {
-    idle: '',
-    sending: '<p class="status status-sending">Wysyłanie wyników…</p>',
-    sent: `
-      <p class="status status-sent">Dziękujemy! Wyniki zostały zapisane.</p>
-      ${scoreLine}
-    `,
-    error: `
+  const errorFallback = state.sendStatus === 'error' ? `
       <p class="status status-error">
-        Nie udało się wysłać wyników automatycznie. Pobierz plik z wynikami
-        i prześlij go prowadzącemu test.
+        Nie udało się automatycznie zapisać wyników. Jeśli możesz, pobierz plik
+        i prześlij go osobie prowadzącej test.
       </p>
       <button type="button" class="btn btn-secondary" data-action="download">Pobierz wyniki (JSON)</button>
-    `
-  };
+    ` : '';
   return `
     <section class="step step-summary">
-      <h2>Dziękujemy za udział!</h2>
-      <p>To już koniec testu. Kliknij przycisk poniżej, aby wysłać swoje odpowiedzi.</p>
-      ${state.sendStatus === 'sent' ? '' : `
-      <button type="button" class="btn btn-primary" data-action="send" ${state.sendStatus === 'sending' ? 'disabled' : ''}>
-        Wyślij wyniki
-      </button>
-      `}
-      ${statusMessages[state.sendStatus]}
+      <h2>Bardzo dziękuję za udział w teście!</h2>
+      <p>Miłego dnia!</p>
+      <p class="result-score">Twój wynik: ${correctCount}/${totalCount} (${percentage}%)</p>
+      ${errorFallback}
     </section>
   `;
 }
 
 function attachSummaryHandlers() {
-  const sendButton = app.querySelector('[data-action="send"]');
-  if (sendButton) sendButton.addEventListener('click', sendResults);
   const downloadButton = app.querySelector('[data-action="download"]');
   if (downloadButton) downloadButton.addEventListener('click', downloadResults);
 }
@@ -319,9 +311,8 @@ function buildPayload() {
   };
 }
 
-async function sendResults() {
-  state.sendStatus = 'sending';
-  render();
+async function sendResults(attempt = 1) {
+  const MAX_ATTEMPTS = 3;
   try {
     const response = await fetch(GAS_WEBHOOK_URL, {
       method: 'POST',
@@ -331,10 +322,15 @@ async function sendResults() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     state.sendStatus = 'sent';
   } catch (error) {
-    console.error('Wysyłka wyników nie powiodła się:', error);
+    console.error(`Wysyłka wyników nie powiodła się (próba ${attempt}/${MAX_ATTEMPTS}):`, error);
+    if (attempt < MAX_ATTEMPTS) {
+      setTimeout(() => sendResults(attempt + 1), 1500 * attempt);
+      return;
+    }
+    // Trwały błąd — pokaż uczestnikowi opcję pobrania, żeby nie zgubić danych.
     state.sendStatus = 'error';
+    if (state.step === 'summary') render();
   }
-  render();
 }
 
 function downloadResults() {
